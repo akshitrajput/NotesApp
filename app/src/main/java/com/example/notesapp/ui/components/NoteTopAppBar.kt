@@ -8,25 +8,25 @@ import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteTopAppBar() {
+fun NoteTopAppBar(onBackClicked: () -> Unit) {
     TopAppBar(
         title = { },
         navigationIcon = {
-            IconButton(onClick = { /* Handle save */ }) {
-                Icon(Icons.Default.Check, contentDescription = "Save Note")
+            IconButton(onClick = onBackClicked) {
+                Icon(Icons.Default.Check, contentDescription = "Save and Go Back")
             }
         },
         actions = {
-            IconButton(onClick = { /* Handle undo */ }) {
+            IconButton(onClick = { /* TODO: Implement undo */ }) {
                 Icon(Icons.Default.Undo, contentDescription = "Undo")
             }
-            IconButton(onClick = { /* Handle redo */ }) {
+            IconButton(onClick = { /* TODO: Implement redo */ }) {
                 Icon(Icons.Default.Redo, contentDescription = "Redo")
             }
-            IconButton(onClick = { /* Handle share */ }) {
+            IconButton(onClick = { /* TODO: Implement share */ }) {
                 Icon(Icons.Default.Share, contentDescription = "Share")
             }
-            IconButton(onClick = { /* Handle more options */ }) {
+            IconButton(onClick = { /* TODO: Implement more options */ }) {
                 Icon(Icons.Default.MoreVert, contentDescription = "More Options")
             }
         },
