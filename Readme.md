@@ -18,6 +18,7 @@
 <h2 align="left">📸 UI Previews</h2>
 ###
 ![Image Alt](https://github.com/akshitrajput/NotesApp/blob/9e77930c4837dc77b7786122825337821d7b4e2e/preview_1.jpg)
+
 ![Image Alt](https://github.com/akshitrajput/NotesApp/blob/9e77930c4837dc77b7786122825337821d7b4e2e/preview_2.jpg)
 
 ###
