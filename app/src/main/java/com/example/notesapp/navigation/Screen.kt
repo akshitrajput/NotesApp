@@ -8,7 +8,11 @@ sealed class Screen(val route: String) {
             return "note_screen?noteId=$noteId" + (categoryId?.let { "&categoryId=$it" } ?: "")
         }
     }
-    object Category : Screen("category_screen/{categoryId}") {
-        fun createRoute(categoryId: String) = "category_screen/$categoryId"
+
+    object Category : Screen("category_screen/{categoryId}/{categoryName}") {
+        fun createRoute(categoryId: String, categoryName: String): String {
+            // We pass both ID and name in the route
+            return "category_screen/$categoryId/$categoryName"
+        }
     }
 }
