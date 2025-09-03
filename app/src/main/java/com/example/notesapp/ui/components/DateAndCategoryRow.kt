@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +23,7 @@ fun DateAndCategoryRow() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = "12-11-2025", color = Color.Gray, fontSize = 12.sp)
+        Text(text = "12-11-2025", color = Color.DarkGray, fontSize = 12.sp, style = MaterialTheme.typography.labelSmall)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 Icons.Default.Book,
@@ -31,7 +32,7 @@ fun DateAndCategoryRow() {
                 modifier = Modifier.size(16.dp)
             )
             Spacer(modifier = Modifier.width(4.dp))
-            Text(text = "Uncategorized", color = Color.Gray, fontSize = 12.sp)
+            Text(text = "Uncategorized", color = Color.DarkGray, fontSize = 12.sp, style = MaterialTheme.typography.labelSmall)
             Icon(Icons.Default.ArrowDropDown, contentDescription = "Dropdown", tint = Color.Gray)
         }
     }

@@ -1,6 +1,7 @@
 package com.example.notesapp.ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -22,7 +23,7 @@ fun NoteContentFields(
         TextField(
             value = title,
             onValueChange = onTitleChange,
-            placeholder = { Text("Title") },
+            placeholder = { Text("Title", fontSize = 28.sp, color = Color.Gray, style = MaterialTheme.typography.titleLarge) },
             textStyle = TextStyle(fontSize = 24.sp),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
@@ -35,7 +36,7 @@ fun NoteContentFields(
         TextField(
             value = note,
             onValueChange = onNoteChange,
-            placeholder = { Text("Note here") },
+            placeholder = { Text("Note here", fontSize = 18.sp, color = Color.Gray, style = MaterialTheme.typography.labelSmall) },
             textStyle = TextStyle(fontSize = 16.sp),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,

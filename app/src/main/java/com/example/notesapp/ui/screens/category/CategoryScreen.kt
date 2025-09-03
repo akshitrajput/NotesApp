@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -37,9 +38,9 @@ fun CategoryScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(categoryName) },
+                title = { Text(categoryName, color = Color.White) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.popBackStack() }, colors = IconButtonDefaults.iconButtonColors(contentColor = Color.White)) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
@@ -49,7 +50,7 @@ fun CategoryScreen(
             FloatingActionButton(onClick = {
                 val newNoteId = UUID.randomUUID().toString()
                 navController.navigate(Screen.Note.createRoute(newNoteId, categoryId))
-            }) {
+            },containerColor = Color(0xFF202124), contentColor = Color.White) {
                 Icon(Icons.Default.Add, contentDescription = "Add Note")
             }
         }
@@ -57,7 +58,7 @@ fun CategoryScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues), // Apply padding from Scaffold
+                .padding(paddingValues),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -71,17 +72,17 @@ fun CategoryScreen(
         }
     }
 
-    // Show the delete confirmation dialog when a note is selected for deletion
     if (noteToDelete != null) {
         DeleteConfirmationDialog(
             item = noteToDelete,
             onConfirm = {
                 viewModel.deleteNote(noteToDelete!!)
-                noteToDelete = null // Hide the dialog
+                noteToDelete = null
             },
             onDismiss = {
-                noteToDelete = null // Hide the dialog
-            }
+                noteToDelete = null
+            },
+            backgroundColor = Color(0xFFFFC107)
         )
     }
 }

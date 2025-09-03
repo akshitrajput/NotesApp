@@ -14,8 +14,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.notesapp.data.model.Category
@@ -35,9 +38,9 @@ fun HomeScreen(
     var itemToDelete by remember { mutableStateOf<Any?>(null) }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Supernotes") }) },
+        topBar = { TopAppBar(title = { Text("Notes App", color = Color.White, modifier = Modifier.padding(16.dp)) }) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showChoiceDialog = true }) {
+            FloatingActionButton(onClick = { showChoiceDialog = true },containerColor = Color(0xFF202124), contentColor = Color.White) {
                 Icon(Icons.Default.Add, contentDescription = "Create")
             }
         }
@@ -45,13 +48,13 @@ fun HomeScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues), // Apply padding from Scaffold
+                .padding(paddingValues),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Section 1: Uncategorized Notes
+
             item {
-                Text("Random Notes", style = MaterialTheme.typography.headlineSmall)
+                Text("Notes", color = Color.DarkGray, style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(8.dp))
             }
             items(randomNotes) { note ->
@@ -62,10 +65,9 @@ fun HomeScreen(
                 )
             }
 
-            // Section 2: Categories
             item {
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Categories", style = MaterialTheme.typography.headlineSmall)
+                Text("Categories", color = Color.DarkGray,style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(8.dp))
             }
             items(categories) { category ->
@@ -78,7 +80,6 @@ fun HomeScreen(
         }
     }
 
-    // --- Dialogs for Creation ---
     if (showChoiceDialog) {
         ChoiceDialog(
             onDismiss = { showChoiceDialog = false },
@@ -119,9 +120,6 @@ fun HomeScreen(
     }
 }
 
-
-// --- Reusable UI Components for this Screen ---
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteItem(note: Note, onClick: () -> Unit, onLongClick: () -> Unit) {
@@ -131,9 +129,12 @@ fun NoteItem(note: Note, onClick: () -> Unit, onLongClick: () -> Unit) {
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongClick
-            )
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White.copy(alpha = 0.5f)
+        )
     ) {
-        Text(text = note.title.ifBlank { "Untitled Note" }, modifier = Modifier.padding(16.dp))
+        Text(text = note.title.ifBlank { "Untitled Note" }, style = MaterialTheme.typography.bodyLarge,modifier = Modifier.padding(16.dp),)
     }
 }
 
@@ -146,7 +147,10 @@ fun CategoryItem(category: Category, onClick: () -> Unit, onLongClick: () -> Uni
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongClick
-            )
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White.copy(alpha = 0.5f)
+        )
     ) {
         Row(
             modifier = Modifier
@@ -155,14 +159,14 @@ fun CategoryItem(category: Category, onClick: () -> Unit, onLongClick: () -> Uni
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = category.name)
-            Icon(Icons.Default.ArrowForwardIos, contentDescription = null, modifier = Modifier.size(16.dp))
+            Text(text = category.name, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+            Icon(Icons.Default.ArrowForwardIos, contentDescription = null, modifier = Modifier.size(16.dp),)
         }
     }
 }
 
 @Composable
-fun DeleteConfirmationDialog(item: Any?, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+fun DeleteConfirmationDialog(item: Any?, onConfirm: () -> Unit, onDismiss: () -> Unit, backgroundColor: Color = Color.White) {
     val name = when (item) {
         is Note -> item.title.ifBlank { "this note" }
         is Category -> item.name
@@ -170,18 +174,18 @@ fun DeleteConfirmationDialog(item: Any?, onConfirm: () -> Unit, onDismiss: () ->
     }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Delete '$name'?") },
-        text = { Text("Are you sure you want to permanently delete this? This action cannot be undone.") },
+        title = { Text("Delete '$name'?", fontSize = 18.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) },
+        text = { Text("Are you sure you want to permanently delete this item?",  fontSize = 15.sp ,style = MaterialTheme.typography.bodyLarge) },
         confirmButton = {
             TextButton(
                 onClick = onConfirm,
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
             ) {
-                Text("Delete")
+                Text("Delete",  fontSize = 16.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge)
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text("Cancel",  fontSize = 16.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) }
         }
     )
 }
@@ -190,10 +194,10 @@ fun DeleteConfirmationDialog(item: Any?, onConfirm: () -> Unit, onDismiss: () ->
 fun ChoiceDialog(onDismiss: () -> Unit, onCreateNote: () -> Unit, onCreateCategory: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Create New") },
-        text = { Text("What would you like to create?") },
-        confirmButton = { TextButton(onClick = onCreateNote) { Text("Note") } },
-        dismissButton = { TextButton(onClick = onCreateCategory) { Text("Category") } }
+        title = { Text("Create New",  fontSize = 18.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) },
+        text = { Text("What would you like to create?", fontSize = 18.sp ,style = MaterialTheme.typography.bodyLarge) },
+        confirmButton = { TextButton(onClick = onCreateNote) { Text("Note",  fontSize = 16.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) } },
+        dismissButton = { TextButton(onClick = onCreateCategory) { Text("Category",  fontSize = 16.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) } }
     )
 }
 
@@ -202,9 +206,9 @@ fun NewCategoryDialog(onDismiss: () -> Unit, onConfirm: (String) -> Unit) {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("New Category") },
-        text = { TextField(value = text, onValueChange = { text = it }, label = { Text("Category Name") }) },
-        confirmButton = { Button(onClick = { onConfirm(text.text) }) { Text("Create") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
+        title = { Text("New Category", fontSize = 18.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) },
+        text = { TextField(value = text, onValueChange = { text = it }, label = { Text("Category Name",  fontSize = 14.sp , style = MaterialTheme.typography.bodyLarge) }) },
+        confirmButton = { Button(onClick = { onConfirm(text.text) }) { Text("Create",  fontSize = 18.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel", fontSize = 18.sp , fontWeight = FontWeight.Bold,style = MaterialTheme.typography.bodyLarge) } }
     )
 }

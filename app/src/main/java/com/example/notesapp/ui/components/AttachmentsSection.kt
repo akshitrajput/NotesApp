@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PictureAsPdf
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,13 +28,13 @@ fun AttachmentsSection() {
     ) {
         AttachmentItem(
             icon = Icons.Default.PictureAsPdf,
-            text = "Supernotes.pdf",
-            size = "33kb"
+            text = "Notes.pdf",
+            size = "80kb",
         )
         AttachmentItem(
             icon = Icons.Default.Mic,
-            text = "Supernotes...",
-            size = "33kb"
+            text = "Aud...",
+            size = "18kb"
         )
     }
 }
@@ -50,8 +51,8 @@ fun AttachmentItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text: 
         Icon(icon, contentDescription = null, tint = Color.Gray)
         Spacer(modifier = Modifier.width(4.dp))
         Column {
-            Text(text, fontSize = 12.sp, color = Color.Black)
-            Text(size, fontSize = 10.sp, color = Color.Gray)
+            Text(text, fontSize = 12.sp, color = Color.Black, style = MaterialTheme.typography.bodyMedium)
+            Text(size, fontSize = 10.sp, color = Color.Gray, style = MaterialTheme.typography.bodySmall)
         }
         Spacer(modifier = Modifier.width(8.dp))
         Icon(Icons.Default.Close, contentDescription = "Remove", modifier = Modifier.size(16.dp))

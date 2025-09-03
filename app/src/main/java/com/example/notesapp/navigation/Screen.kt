@@ -11,7 +11,6 @@ sealed class Screen(val route: String) {
 
     object Category : Screen("category_screen/{categoryId}/{categoryName}") {
         fun createRoute(categoryId: String, categoryName: String): String {
-            // We pass both ID and name in the route
             return "category_screen/$categoryId/$categoryName"
         }
     }

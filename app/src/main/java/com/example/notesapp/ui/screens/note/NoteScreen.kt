@@ -42,7 +42,6 @@ fun NoteScreenContent(
     var title by remember { mutableStateOf("") }
     var content by remember { mutableStateOf("") }
 
-    // Update the local state when the note from the ViewModel changes
     LaunchedEffect(note) {
         if (note != null) {
             title = note.title
@@ -65,7 +64,7 @@ fun NoteScreenContent(
                 .padding(paddingValues)
                 .background(LightYellow)
         ) {
-            DateAndCategoryRow() // This can be enhanced to show the real date/category
+            DateAndCategoryRow()
             NoteContentFields(
                 title = title,
                 onTitleChange = { title = it },
@@ -73,7 +72,7 @@ fun NoteScreenContent(
                 onNoteChange = { content = it }
             )
             Spacer(modifier = Modifier.weight(1f))
-            AttachmentsSection() // This remains a static UI component for now
+            AttachmentsSection()
         }
     }
 }

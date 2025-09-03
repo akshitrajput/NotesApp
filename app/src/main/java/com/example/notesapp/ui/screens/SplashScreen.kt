@@ -1,5 +1,6 @@
 package com.example.notesapp.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -8,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.notesapp.navigation.Screen
 import kotlinx.coroutines.delay
@@ -22,8 +26,8 @@ fun SplashScreen(navController: NavController) {
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().background(Color(0xFFFFF8E1))
     ) {
-        Text(text = "Supernotes", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "Notes App", fontSize = 40.sp,style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     }
 }
